@@ -6,6 +6,8 @@
 //  Copyright (c) 2015 joanne. All rights reserved.
 //
 
+
+import Social
 import UIKit
 
 class DetailViewController: UIViewController {
@@ -31,7 +33,11 @@ class DetailViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         self.configureView()
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: "shareTapped")
+        
     }
+
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
@@ -45,6 +51,16 @@ class DetailViewController: UIViewController {
         navigationController?.hidesBarsOnTap = false
     }
     
+    
+    func shareTapped() {
+//        let activity = UIActivityViewController(activityItems: [detailImageView.image!], applicationActivities: [])
+//        presentViewController(activity, animated: true, completion: nil)
+        let social = SLComposeViewController(forServiceType: SLServiceTypeFacebook)
+        social.setInitialText("helllo world!")
+        social.addImage(detailImageView.image!)
+        social.addURL(NSURL(string: "http://joannne.me"))
+        presentViewController(social, animated: true, completion: nil)
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
